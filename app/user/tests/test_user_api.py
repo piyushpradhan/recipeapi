@@ -8,6 +8,7 @@ from rest_framework import status
 
 CREATE_USER_URL = reverse('user:create')
 
+
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
@@ -28,7 +29,6 @@ class PublicUserApiTests(TestCase):
         res = self.client.post(CREATE_USER_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        user = get_user_model().objects.get(**res.data)
         self.assertNotIn('password', res.data)
 
     def test_user_exists(self):
